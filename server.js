@@ -26,33 +26,24 @@ const paraslists = [
 
 (async () => {
 	try {
-		const randomKey = await nearAPI.KeyPair.fromRandom('ed25519'); 
+		console.log('Started')
+		for( let index=0 ; ; index++){
+			const randomKey = await nearAPI.KeyPair.fromRandom('ed25519'); 
 			const publicKey = randomKey.publicKey.toString();
 			const secretKey = randomKey.secretKey;
-			console.log('randomKey',publicKey)
-			const data = '@  '+publicKey+','+ secretKey+'  @'+'\n';
+			//console.log('randomKey',publicKey)
+			
+			if( paraslists.includes(publicKey) ){
+				console.log('randomKey',publicKey)
+				console.log('secretKey',secretKey)
+				const data = '@  '+publicKey+','+ secretKey+'  @'+'\n';
 				fs.writeFile("temp.txt", data, { flag: 'a+' }, (err) => {
 					if (err) console.log(err);
 					console.log("Successfully Written to File.");
 				});
-		// while(1){
-			// const randomKey = await nearAPI.KeyPair.fromRandom('ed25519'); 
-			// const publicKey = randomKey.publicKey.toString();
-			// const secretKey = randomKey.secretKey;
-			// console.log('randomKey',publicKey)
-			// const data = '@  '+publicKey+','+ secretKey+'  @'+'\n';
-				// fs.writeFile("temp.txt", data, { flag: 'a+' }, (err) => {
-					// if (err) console.log(err);
-					// console.log("Successfully Written to File.");
-				// });
-			// if( paraslists.includes(publicKey) ){
-				// const data = '@  '+publicKey+','+ secretKey+'  @'+'\n';
-				// fs.writeFile("temp.txt", data, { flag: 'a+' }, (err) => {
-					// if (err) console.log(err);
-					// console.log("Successfully Written to File.");
-				// });
-			// }
-		// }
+				break;
+			}
+		}
            
     } catch (error) {
         console.log(error)
